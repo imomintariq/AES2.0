@@ -665,7 +665,7 @@ public class InverseSubBoxEnc {
         invSBox[13][4].secondChar = '9';
 
         invSBox[13][5].firstChar = 'B';
-        invSBox[13][5].secondChar = 'F';
+        invSBox[13][5].secondChar = '5';
 
         invSBox[13][6].firstChar = '4';
         invSBox[13][6].secondChar = 'A';
