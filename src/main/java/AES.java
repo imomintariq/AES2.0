@@ -201,12 +201,22 @@ public class AES {
 
     public static void main(String [] args) throws UnsupportedEncodingException {
 
+        long startTime = System.nanoTime();
         Hexa [][] encrypted_data = AESAlgoEnc(4, 4, 10, "00000000000000000000000000000000", "00000000000000000000000000000000");
         System.out.println("Final Encryption:");
+        long endTime   = System.nanoTime();
+        long totalTime = endTime - startTime;
+        System.out.println("Total time for Encryption in Nano Seconds= " + totalTime);
         displayHexMatrix(encrypted_data, 4, 4);
+
+
+        startTime = System.nanoTime();
         Hexa [][] decrypted_data = AESAlgoDec(4, 4, 10, HextoString(encrypted_data,4,4), "00000000000000000000000000000000");
         System.out.println("Final Decryption:");
         displayHexMatrix(decrypted_data, 4, 4);
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;
+        System.out.println("Total time for Decryption in Nano Seconds = " + totalTime);
 
     }
 }
