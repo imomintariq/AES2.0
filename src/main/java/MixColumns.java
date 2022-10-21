@@ -2,7 +2,7 @@ import static java.lang.String.valueOf;
 
 public class MixColumns {
     public static final String enc_matrix= "02010103030201010103020101010302";
-    public static final String dec_matrix= "0E0B0D09090E0B0D0D090E0B0B0D090E";
+    public static final String dec_matrix= "0E090D0B0B0E090D0D0B0E09090D0B0E";
 
     public static Hexa[][] StringToHexa(String str, int rows, int columns){
         Hexa hex_mat[][] = new Hexa[4][4];

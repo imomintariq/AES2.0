@@ -92,19 +92,32 @@ public class AES {
         KeyExpansion ke = new KeyExpansion(128);
         Hexa[][][] expanded_key = ke.KeyExpansionAlgo(ke.StringToHexaArr(key, Nb, Nb));
 
-        state = AddRoundKey.addRoundkey(state,expanded_key,0,Nb);
+        //Original Engine
+        System.out.println("Original Block:");
+        displayHexMatrix(state, Nb,Nb);
+
+        //Add Round Key
+        state = AddRoundKey.addRoundkey(state,expanded_key,Nr,Nb);
+        System.out.println("Add Round Key:");
+        displayHexMatrix(state, Nb,Nb);
 
 
         for (int round = 1; round <= Nr - 1; round++) {
+            //Shift Rows
+            state = InvShiftRows.invShiftRows(state,Nb,Nb);
+            System.out.println("Shift Rows: ");
+            displayHexMatrix(state,Nb,Nb);
+
+
             //Sub Bytes
             System.out.println("ROUND :"+String.valueOf(round)+"\n");
-            state = SubBytes.SubBytesEnc(state);
+            state = InverseSubBoxEnc.SubBytesDec(state);
             System.out.println("Sub Bytes: ");
             displayHexMatrix(state,Nb,Nb);
 
-            //Shift Rows
-            state = ShiftRows.shiftRows(state,Nb,Nb);
-            System.out.println("Shift Rows: ");
+            //Add round Key
+            state = AddRoundKey.addRoundkey(state,expanded_key,(Nr)-round,Nb);
+            System.out.println("Add Round Key: ");
             displayHexMatrix(state,Nb,Nb);
 
             //Mix Columns
@@ -112,10 +125,7 @@ public class AES {
             state = MixColumns.multiplyMatrices(mix_mat, state,Nb,Nb,Nb);
             System.out.println("Mix Columns: ");
             displayHexMatrix(state,Nb,Nb);
-            //Add round Key
-            state = AddRoundKey.addRoundkey(state,expanded_key,round,Nb);
-            System.out.println("Add Round Key: ");
-            displayHexMatrix(state,Nb,Nb);
+
 
         }
         System.out.println("Final Round:");
@@ -131,7 +141,7 @@ public class AES {
         displayHexMatrix(state,Nb,Nb);
 
         //Round Key
-        state = AddRoundKey.addRoundkey(state,expanded_key,Nr,Nb);
+        state = AddRoundKey.addRoundkey(state,expanded_key,0,Nb);
         System.out.println("Add Round Key: ");
         displayHexMatrix(state,Nb,Nb);
 
@@ -188,7 +198,7 @@ public class AES {
         Hexa [][] encrypted_data = AESAlgoEnc(4, 4, 10, "00000000000000000000000000000000", "00000000000000000000000000000000");
         System.out.println("Final Encryption:");
         displayHexMatrix(encrypted_data, 4, 4);
-        Hexa [][] decrypted_data = AESAlgoDec(4, 4, 10, HextoString(encrypted_data,4,4), "2B7E151628AED2A6ABf7158809CF4F3C");
+        Hexa [][] decrypted_data = AESAlgoDec(4, 4, 10, HextoString(encrypted_data,4,4), "00000000000000000000000000000000");
         System.out.println("Final Decryption:");
         displayHexMatrix(decrypted_data, 4, 4);
 

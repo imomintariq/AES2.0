@@ -482,7 +482,7 @@ public class SubBoxEnc {
         sBox[9][9].firstChar = 'E';
         sBox[9][9].secondChar = 'E';
 
-        sBox[9][10].firstChar = 'D';
+        sBox[9][10].firstChar = 'B';
         sBox[9][10].secondChar = '8';
 
         sBox[9][11].firstChar = '1';
